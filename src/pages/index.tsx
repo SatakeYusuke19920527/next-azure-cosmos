@@ -13,10 +13,23 @@ export default function Home() {
       const res = await axios.post('api/azopenai', { message });
       setContent(res.data[0].message.content);
     } catch (err) {
-      console.log('🚀 ~ file: index.tsx:32 ~ getAzData ~ err:', err);
+      console.log('🚀 ~ file: index.tsx:16 ~ getAzData ~ err:', err);
     }
     setIsLoading(false);
   };
+
+  const getAgentData = async () => {
+    setIsLoading(true);
+    try {
+      console.log('start');
+      const res = await axios.post('api/langchain', { message });
+      setContent(res.data.result.output);
+    } catch (err) {
+      console.log('🚀 ~ file: index.tsx:28 ~ getAgentData ~ err:', err);
+    }
+    setIsLoading(false);
+  };
+
   return (
     <main className={`flex min-h-screen flex-col items-center p-24`}>
       <h1>🤖なんでも聞いてください🤖</h1>
@@ -34,20 +47,20 @@ export default function Home() {
         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
         placeholder="Write your thoughts here..."
       ></textarea>
-      <div className='flex'>
+      <div className="flex items-center">
         <button
           onClick={getAzData}
           type="button"
           className="my-5 py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
         >
-          OpenAI
+          Azure OpenAIの回答
         </button>
         <button
-          onClick={getAzData}
+          onClick={getAgentData}
           type="button"
           className="my-5 py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
         >
-          OpenAI + LangChain
+          Azure OpenAI + LangChainを使った回答
         </button>
       </div>
       {isLoading ? (

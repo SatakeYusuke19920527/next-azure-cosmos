@@ -2,11 +2,11 @@ import { AzureKeyCredential, OpenAIClient } from '@azure/openai';
 
 export class AzOpenaiRepository {
   async getAzOpenAIData(message: string) {
-    console.log('start', process.env.AZURE_OPENAI_ENDPOINT!);
+    console.log('start', process.env.AZURE_OPENAI_API_ENDPOINT!);
     return new Promise(async (resolve, reject) => {
-      const endpoint = process.env.AZURE_OPENAI_ENDPOINT!;
+      const endpoint = process.env.AZURE_OPENAI_API_ENDPOINT!;
       const azureApiKey = process.env.AZURE_OPENAI_API_KEY!;
-      const deploymentId = process.env.AZURE_OPENAI_DEPLOYMENT_ID!;
+      const deploymentId = process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME!;
       const content = `
       ${message}
       `;
